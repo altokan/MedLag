@@ -1,0 +1,22 @@
+
+{
+  "name": "RDMedLag - Tactical Medical Inventory",
+  "short_name": "RDMedLag",
+  "description": "Tactical Medical Inventory System for Rescue Teams",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a1628",
+  "theme_color": "#0a1628",
+  "icons": [
+    {
+      "src": "https://feuerwehr-duelmen.de/wp-content/uploads/2019/12/logo_feuerwehr_duelmen.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://feuerwehr-duelmen.de/wp-content/uploads/2019/12/logo_feuerwehr_duelmen.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
