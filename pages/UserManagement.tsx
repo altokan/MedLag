@@ -86,10 +86,9 @@ const UserManagement: React.FC<UserManagementProps> = ({ t, users, setUsers, cur
       alert("Cannot delete your own active account!");
       return;
     }
-    if (confirm("Are you sure you want to permanently remove this member?")) {
-      setUsers(prev => prev.filter(u => u.id !== id));
-      setIsModalOpen(false);
-    }
+    // حذف مباشر بدون تأكيد
+    setUsers(prev => prev.filter(u => u.id !== id));
+    setIsModalOpen(false);
   };
 
   const togglePermission = (key: keyof UserPermissions) => {
@@ -161,9 +160,9 @@ const UserManagement: React.FC<UserManagementProps> = ({ t, users, setUsers, cur
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md overflow-y-auto">
-           <div className="bg-[#0d1b2e] w-full max-w-2xl my-auto rounded-[32px] md:rounded-[48px] border border-white/10 shadow-3xl overflow-hidden animate-in zoom-in duration-300">
-              <div className="p-5 md:p-8 bg-accent text-[#0a1628] flex justify-between items-center">
+        <div className="fixed inset-0 z-[200] flex items-start justify-center p-4 bg-black/95 backdrop-blur-md overflow-y-auto">
+           <div className="bg-[#0d1b2e] w-full max-w-2xl my-8 rounded-[32px] md:rounded-[48px] border border-white/10 shadow-3xl animate-in zoom-in duration-300">
+              <div className="p-5 md:p-8 bg-accent text-[#0a1628] flex justify-between items-center sticky top-0 z-10">
                  <h2 className="text-sm md:text-2xl font-black uppercase tracking-tighter">
                    {selectedUser ? 'Edit Member Profile' : 'Add New Member'}
                  </h2>
@@ -172,7 +171,7 @@ const UserManagement: React.FC<UserManagementProps> = ({ t, users, setUsers, cur
                  </button>
               </div>
 
-              <div className="p-6 md:p-10 space-y-6 max-h-[75vh] overflow-y-auto no-scrollbar">
+              <div className="p-6 md:p-10 space-y-6">
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <div className="space-y-1">
                        <label className="text-[10px] font-black text-slate-500 uppercase ml-2 tracking-widest">Full Name *</label>

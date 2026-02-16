@@ -37,15 +37,21 @@ const Dashboard: React.FC<DashboardProps> = ({ t, onNavigate, currentUser, setti
   // Filter alerts for the feed: targeted to user + special 72h rule for Restocked items
   const recentActivities = alerts
     .filter(a => {
+      // Check if alert is targeted to this user or all users
       const isTargeted = !a.targetUserId || a.targetUserId === 'all' || a.targetUserId === currentUser.id;
       if (!isTargeted) return false;
 
       // Logic: If it's a "Restocked" alert, only show if created within the last 72 hours
-      if (a.title.includes('Restocked')) {
+      if (a.title && a.title.includes('Restocked')) {
         const now = new Date();
         const alertTime = new Date(a.timestamp);
         const diffInHours = (now.getTime() - alertTime.getTime()) / (1000 * 3600);
         return diffInHours <= 72;
+      }
+
+      // Show all broadcasts (including updates with links)
+      if (a.type === 'broadcast') {
+        return true;
       }
 
       // Show low stock and expiring items in the feed
@@ -53,15 +59,20 @@ const Dashboard: React.FC<DashboardProps> = ({ t, onNavigate, currentUser, setti
         return true;
       }
 
-      // Show broadcast/updates
-      if (a.type === 'broadcast' || a.type === 'issue_report') {
+      // Show issue reports
+      if (a.type === 'issue_report') {
+        return true;
+      }
+
+      // Show alerts with links (updates)
+      if (a.link) {
         return true;
       }
 
       return false;
     })
     .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-    .slice(0, 5);
+    .slice(0, 10);
 
   const getActivityConfig = (activity: Alert) => {
     if (activity.title.includes('Restocked')) {

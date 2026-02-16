@@ -289,10 +289,11 @@ const App: React.FC = () => {
       timestamp: new Date().toISOString(),
       status: 'new',
       read: false,
-      link,
-      imageUrl,
-      targetUserId: targetUserIds ? targetUserIds[0] : 'all'
+      link: link || undefined,
+      imageUrl: imageUrl || undefined,
+      targetUserId: (targetUserIds && targetUserIds.length > 0) ? targetUserIds[0] : undefined
     };
+    console.log('Sending broadcast:', newAlert);
     firebase.saveSingleAlert(newAlert);
   };
 

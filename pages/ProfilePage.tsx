@@ -188,14 +188,14 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ t, user, users, setUsers, tas
       )}
 
       {viewingReport && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md" onClick={() => { setViewingReport(null); setReplyText(''); setReplyImage(null); }}>
-           <div className="bg-[#0d1b2e] w-full max-w-2xl rounded-[40px] border border-white/10 shadow-3xl h-[85vh] flex flex-col overflow-hidden animate-in zoom-in duration-300" onClick={e=>e.stopPropagation()}>
-              <div className="p-6 bg-accent text-[#0a1628] flex justify-between items-center flex-shrink-0 shadow-lg">
+        <div className="fixed inset-0 z-[200] flex items-start justify-center p-4 bg-black/95 backdrop-blur-md overflow-y-auto" onClick={() => { setViewingReport(null); setReplyText(''); setReplyImage(null); }}>
+           <div className="bg-[#0d1b2e] w-full max-w-2xl my-8 rounded-[40px] border border-white/10 shadow-3xl flex flex-col animate-in zoom-in duration-300" onClick={e=>e.stopPropagation()}>
+              <div className="p-6 bg-accent text-[#0a1628] flex justify-between items-center flex-shrink-0 shadow-lg sticky top-0 z-10">
                  <h2 className="text-lg font-black uppercase tracking-tighter">Communication Thread</h2>
                  <button onClick={() => { setViewingReport(null); setReplyText(''); setReplyImage(null); }} className="p-1 hover:bg-black/5 rounded-full"><X size={28}/></button>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-6 no-scrollbar bg-[#0a1628]/20">
+              <div className="p-6 md:p-10 space-y-6 bg-[#0a1628]/20">
                  <div className="bg-[#0a1628] p-6 rounded-3xl border border-white/5 shadow-inner">
                     <h3 className="text-white font-black uppercase text-sm mb-2">{viewingReport.title}</h3>
                     <p className="text-slate-400 text-xs leading-relaxed">{viewingReport.description}</p>

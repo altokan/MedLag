@@ -112,9 +112,9 @@ const OrderList: React.FC<OrderListProps> = ({ t, orders, setOrders, onDeliveryC
       </div>
 
       {deliveryModal && (
-        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
-           <div className="bg-[#0d1b2e] w-full max-w-sm rounded-[40px] border border-white/10 overflow-hidden animate-in zoom-in">
-              <div className="p-6 bg-emerald-600 text-white flex justify-between items-center">
+        <div className="fixed inset-0 z-[1000] flex items-start justify-center p-4 bg-black/95 backdrop-blur-md overflow-y-auto">
+           <div className="bg-[#0d1b2e] w-full max-w-sm my-8 rounded-[40px] border border-white/10 animate-in zoom-in">
+              <div className="p-6 bg-emerald-600 text-white flex justify-between items-center sticky top-0 z-10">
                  <h2 className="text-lg font-black uppercase">Final Receipt</h2>
                  <button onClick={() => setDeliveryModal(null)} className="p-1 hover:bg-black/10 rounded-full"><X size={24}/></button>
               </div>

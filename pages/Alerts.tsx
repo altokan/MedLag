@@ -97,8 +97,8 @@ const Alerts: React.FC<AlertsProps> = ({ t, alerts, setAlerts, user, medicines }
     }
   };
 
-  const activeAlerts = alerts.filter(a => a.status !== 'completed' && (!a.targetUserId || a.targetUserId === 'all' || a.targetUserId === user.id));
-  const historyAlerts = alerts.filter(a => a.status === 'completed' && (!a.targetUserId || a.targetUserId === 'all' || a.targetUserId === user.id));
+  const activeAlerts = alerts.filter(a => a.status !== 'completed' && (!a.targetUserId || a.targetUserId === 'all' || a.targetUserId === user.id || a.targetUserId === undefined));
+  const historyAlerts = alerts.filter(a => a.status === 'completed' && (!a.targetUserId || a.targetUserId === 'all' || a.targetUserId === user.id || a.targetUserId === undefined));
   const displayAlerts = viewTab === 'active' ? activeAlerts : historyAlerts;
 
   return (
@@ -151,9 +151,9 @@ const Alerts: React.FC<AlertsProps> = ({ t, alerts, setAlerts, user, medicines }
       </div>
 
       {selectedAlert && (
-        <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md">
-           <div className="bg-[#0d1b2e] w-full max-w-2xl rounded-[40px] border border-white/10 shadow-3xl overflow-hidden animate-in zoom-in h-[85vh] flex flex-col">
-              <div className="p-6 bg-accent text-[#0a1628] flex justify-between items-center shadow-lg flex-shrink-0">
+        <div className="fixed inset-0 z-[300] flex items-start justify-center p-4 bg-black/95 backdrop-blur-md overflow-y-auto">
+           <div className="bg-[#0d1b2e] w-full max-w-2xl my-8 rounded-[40px] border border-white/10 shadow-3xl animate-in zoom-in flex flex-col">
+              <div className="p-6 bg-accent text-[#0a1628] flex justify-between items-center shadow-lg flex-shrink-0 sticky top-0 z-10">
                  <h2 className="text-lg font-black uppercase tracking-tighter">Signal Investigation</h2>
                  <div className="flex gap-2">
                     {isAdmin && (
@@ -163,7 +163,7 @@ const Alerts: React.FC<AlertsProps> = ({ t, alerts, setAlerts, user, medicines }
                  </div>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 no-scrollbar bg-[#0a1628]/30">
+              <div className="p-6 md:p-8 space-y-6 bg-[#0a1628]/30">
                  <div className="bg-[#0a1628] p-6 rounded-3xl border border-white/5 shadow-inner">
                     <div className="flex justify-between items-start">
                        <div>
