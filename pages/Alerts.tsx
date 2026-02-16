@@ -83,7 +83,7 @@ const Alerts: React.FC<AlertsProps> = ({ t, alerts, setAlerts, user, medicines }
   };
 
   const handleDeleteAlert = (id: string) => {
-    if (!confirm("Are you sure you want to permanently delete this alert record?")) return;
+    // حذف مباشر بدون تأكيد
     setAlerts(prev => prev.filter(a => a.id !== id));
     setSelectedAlert(null);
   };

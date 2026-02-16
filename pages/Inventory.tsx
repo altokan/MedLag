@@ -108,10 +108,7 @@ const Inventory: React.FC<InventoryProps> = ({ t, medicines, setMedicines, role,
 
   const handleConfirmDelete = () => {
     if (!deleteConfirmModal) return;
-    if (deletePassword !== currentUser.password) {
-      setDeleteError(t.authFailed || "Authentication Failed");
-      return;
-    }
+    // حذف مباشر بدون طلب كلمة مرور - مع تسجيل في السجلات
     const log: DeletionLog = { 
         id: Math.random().toString(36).substr(2, 9), 
         medicineName: deleteConfirmModal.name, 
@@ -124,7 +121,19 @@ const Inventory: React.FC<InventoryProps> = ({ t, medicines, setMedicines, role,
     setDeleteConfirmModal(null);
     setDeletePassword('');
     setDeleteError('');
-    alert("Asset successfully removed from inventory");
+  };
+
+  // حذف مباشر عند الضغط
+  const handleDirectDelete = (med: Medicine) => {
+    const log: DeletionLog = { 
+        id: Math.random().toString(36).substr(2, 9), 
+        medicineName: med.name, 
+        quantity: med.currentStock, 
+        deletedBy: currentUser.fullName || currentUser.username, 
+        timestamp: new Date().toISOString() 
+    };
+    onLoggedDeletion(log);
+    setMedicines(prev => prev.filter(m => m.id !== med.id));
   };
 
   const handleSave = () => {
@@ -204,7 +213,7 @@ const Inventory: React.FC<InventoryProps> = ({ t, medicines, setMedicines, role,
                <div className="flex items-center gap-1">
                   <button onClick={() => onUpdateCartQty(med, 1)} className="p-2.5 md:p-3 bg-accent/10 text-accent hover:bg-accent hover:text-[#0a1628] rounded-xl transition-all" title="Withdraw Item"><Plus size={16} strokeWidth={4}/></button>
                   {canEdit && <button onClick={() => { setEditingMed(med); setFormData(med); setPiecesPerBox(med.piecesPerBox); setSingleUnits(med.currentStock); setIsModalOpen(true); }} className="p-2.5 md:p-3 text-slate-500 hover:text-white"><Edit2 size={16}/></button>}
-                  {canDelete && <button onClick={() => setDeleteConfirmModal(med)} className="p-2.5 md:p-3 text-red-500/30 hover:text-red-500"><Trash2 size={16}/></button>}
+                  {canDelete && <button onClick={() => handleDirectDelete(med)} className="p-2.5 md:p-3 text-red-500/30 hover:text-red-500"><Trash2 size={16}/></button>}
                </div>
             </div>
           </div>
@@ -212,13 +221,13 @@ const Inventory: React.FC<InventoryProps> = ({ t, medicines, setMedicines, role,
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-           <div className="bg-[#0d1b2e] w-full max-w-xl my-auto rounded-[32px] md:rounded-[40px] border border-white/10 shadow-3xl overflow-hidden animate-in zoom-in">
-              <div className="p-5 md:p-6 bg-accent text-[#0a1628] flex justify-between items-center font-black uppercase relative">
+        <div className="fixed inset-0 z-[150] flex items-start justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
+           <div className="bg-[#0d1b2e] w-full max-w-xl my-8 rounded-[32px] md:rounded-[40px] border border-white/10 shadow-3xl overflow-visible animate-in zoom-in">
+              <div className="p-5 md:p-6 bg-accent text-[#0a1628] flex justify-between items-center font-black uppercase relative sticky top-0 z-10">
                  <h2 className="text-sm md:text-base">{editingMed ? t.edit : t.addMedicine}</h2>
                  <button onClick={() => { setIsModalOpen(false); setEditingMed(null); }} className="hover:scale-110 transition-transform p-1 bg-black/10 rounded-full"><X size={24}/></button>
               </div>
-              <div className="p-5 md:p-8 space-y-6 max-h-[80vh] overflow-y-auto no-scrollbar">
+              <div className="p-5 md:p-8 space-y-6">
                  <div className="space-y-3">
                     <label className="text-[10px] font-black text-slate-500 uppercase ml-2 tracking-widest">{t.photo}</label>
                     <div className="flex items-center gap-4">
