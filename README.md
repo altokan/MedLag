@@ -1,65 +1,20 @@
-# RDMedLag - Medical Inventory System
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-A modern medical inventory management system built with React, TypeScript, and Tailwind CSS.
+# Run and deploy your AI Studio app
 
-## Features
+This contains everything you need to run your app locally.
 
-- 📦 **Stock Management** - Track medical supplies and inventory
-- 🔐 **BTM Vault** - Secure controlled substances management
-- 📊 **Reports** - Generate comprehensive inventory reports
-- 👥 **User Management** - Role-based access control
-- 🔔 **Alerts** - Low stock and expiry notifications
-- 📱 **PWA Ready** - Installable on mobile devices
+View your app in AI Studio: https://ai.studio/apps/drive/1Nbtr4ZbqJR6MI2lS0hGdM_1JXEmEZ4cj
 
-## Tech Stack
+## Run Locally
 
-- React 18
-- TypeScript
-- Vite
-- Tailwind CSS
-- Lucide Icons
+**Prerequisites:**  Node.js
 
-## Getting Started
 
-### Prerequisites
-
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
-
-```bash
-# Install dependencies
-yarn install
-
-# Start development server
-yarn dev
-
-# Build for production
-yarn build
-```
-
-## Deployment
-
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Connect your repository to [Vercel](https://vercel.com)
-3. Vercel will automatically detect Vite and deploy
-
-### Manual Deployment
-
-```bash
-yarn build
-```
-
-The `dist` folder contains the production build.
-
-## Default Login
-
-- **Username:** admin
-- **Password:** admin
-
-## License
-
-Developed & Designed by Amjad Altokan
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
